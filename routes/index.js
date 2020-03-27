@@ -25,7 +25,6 @@ router.post('/register' , function(req, res, next){
       //res.render('registersucc' , {title: 'ลงทะเบียนเรียบร้อยแล้ว'});
       var username = req.body.username;
       var password = req.body.password;
-      console.log(username);
       var sql = "INSERT INTO user (username, password) VALUES ?";
       var values = [
         [username , password]
