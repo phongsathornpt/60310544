@@ -39,12 +39,6 @@ router.post('/register' , function(req, res, next){
     }
 });
 
-router.get('/seeuser' , function(req, res, next){
-  db.query("SELECT * FROM user", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-  });
-});
 
 
 module.exports = router;
