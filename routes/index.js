@@ -22,9 +22,29 @@ router.post('/register' , function(req, res, next){
     if(!result.isEmpty()) {
       res.render('register' , {errors:errors} );
     }else{
-      
-      res.render('registersucc' , {title: 'req.body.user.name'});
+      //res.render('registersucc' , {title: 'ลงทะเบียนเรียบร้อยแล้ว'});
+      var username = req.body.username;
+      var password = req.body.password;
+      console.log(username);
+      var sql = "INSERT INTO user (username, password) VALUES ?";
+      var values = [
+        [username , password]
+      ];
+      db.query(sql, [values], (error, results, fields)=>{
+        // เกิด error ในคำสั่ง sql
+        if(error) return res.render('registersucc' , {title: 'เกิดข้อผิดพลาด'});
+        // แสดงข้อมูลกร๊ไม่เกิด error
+        return res.render('registersucc' , {title: 'ลงทะเบียนเรียบร้อยแล้ว'});        
+    })
     }
 });
+
+router.get('/seeuser' , function(req, res, next){
+  db.query("SELECT * FROM user", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
+
 
 module.exports = router;
