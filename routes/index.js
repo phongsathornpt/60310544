@@ -1,6 +1,10 @@
 var express = require('express');
+var flash = require('connect-flash');
 var router = express.Router();
 const { check, validationResult } = require('express-validator');
+const db = require('../config/db')
+const bodyParser = require('body-parser');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,16 +16,14 @@ router.get('/register' , function(req, res, next){
 });
 
 
-router.post('/register' ,
-  [ 
-    check("name" , "เห้ยใส่ข้อมูลก่อนกด input ดิวะ").not().isEmpty() 
-  ] , function(req, res, next){
+router.post('/register' , function(req, res, next){
     const result = validationResult(req);
     var errors = result.errors;
     if(!result.isEmpty()) {
       res.render('register' , {errors:errors} );
     }else{
-      console.log(req.body.test);
+      
+      res.render('registersucc' , {title: 'req.body.user.name'});
     }
 });
 
